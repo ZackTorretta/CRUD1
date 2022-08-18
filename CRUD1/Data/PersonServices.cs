@@ -3,6 +3,7 @@ namespace CRUD1.Data
 {
     public class PersonServices
     {
+        //crud services
         #region Private members
         private PersonDBcontext dbContext;
         #endregion
@@ -19,11 +20,11 @@ namespace CRUD1.Data
         /// This method returns the list of product
         /// </summary>
         /// <returns></returns>
-        public async Task<List<Person>> GetPersonAsync()
+        public async Task<List<Person>> GetPersonAsync() //get here
         {
             return await dbContext.Person.ToListAsync();
         }
-
+        
         /// <summary>
         /// This method add a new product to the DbContext and saves it. ADD here
         /// </summary>
@@ -33,11 +34,13 @@ namespace CRUD1.Data
         {
             try
             {
+                
                 dbContext.Person.Add(person);
                 await dbContext.SaveChangesAsync();
             }
-            catch (Exception) //test
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 throw;
             }
             return person;
@@ -46,7 +49,7 @@ namespace CRUD1.Data
         /// <summary>
         /// This method update and existing product and saves the changes. EDIT
         /// </summary>
-        /// <param name="product"></param>
+        /// <param name="p"></param>
         /// <returns></returns>
         public async Task<Person> UpdatePersonAsync(Person person)
         {
@@ -71,7 +74,7 @@ namespace CRUD1.Data
         /// </summary>
         /// <param name="person"></param>
         /// <returns></returns>
-        public async Task DeletePersonAsync(Person person)
+        public async Task DeletePersonAsync(Person person) //delete here
         {
             try
             {

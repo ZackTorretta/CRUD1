@@ -1,6 +1,7 @@
 using CRUD1.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,14 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+//register db context
+builder.Services.AddDbContext<PersonDBcontext>(option =>
+    {
+        option.UseSqlite("Data Source = Person.db");
 
+    });    
+//register services
+builder.Services.AddScoped<PersonServices>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

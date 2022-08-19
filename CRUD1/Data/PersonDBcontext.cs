@@ -33,7 +33,7 @@ namespace CRUD1.Data
         }
         //DateTime thisDate2 = new DateTime(2011, 6, 10); //this = 6/10/2011 or june 10, 2011
         #region Private methods
-        private List<Person> GetPerson()
+        public List<Person> GetPerson()
         {
             return new List<Person>
             {

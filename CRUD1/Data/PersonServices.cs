@@ -25,6 +25,20 @@ namespace CRUD1.Data
             return await dbContext.Person.ToListAsync();
         }
         
+        public async Task<Person> GetSinglePerson(Guid id)
+        {
+            var contact = await dbContext.Person.FindAsync(id);
+            if (contact == null)
+            {
+                Console.WriteLine("null findasync");
+            }
+            else
+            {
+                Console.WriteLine(contact);
+            }
+            return contact;
+
+        }
         /// <summary>
         /// This method add a new product to the DbContext and saves it. ADD here
         /// </summary>
@@ -56,9 +70,11 @@ namespace CRUD1.Data
             try
             {
                 var productExist = dbContext.Person.FirstOrDefault(p => p.Id == person.Id);
+                Console.WriteLine("EXIST IS", productExist);
                 if (productExist != null)
                 {
                     dbContext.Update(person);
+                    Console.WriteLine("SAVING TO THE DATABASE");
                     await dbContext.SaveChangesAsync();
                 }
             }

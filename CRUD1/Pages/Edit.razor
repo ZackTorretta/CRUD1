@@ -40,26 +40,7 @@
 
         
     </div>
-@*<EditForm Model="theperson">
-                <div class="form-group">
-                    <label for="FirstName">Person First Name</label>
-                    <input type="text" id="FirstName" class="form-control" @bind-value="theperson.FirstName" />
-                </div>
-                <div class="form-group">
-                    <label for="FirstName">Person First Name</label>
-                    <input type="text" id="FirstName" class="form-control" @bind-value="theperson.LastName" />
-                </div>
-                <div class="form-group">
-                    <label for="FirstName">Person First Name</label>
-                    <input type="text" id="FirstName" class="form-control" @bind-value="theperson.PhoneNumber" />
-                </div>
-                <div class="form-group">
-                    <label for="FirstName">Person First Name</label>
-                    <input type="date" id="FirstName" class="form-control" @bind-value="theperson.BirthDate" />
-                </div>
 
-
-            </EditForm>*@
 @code {
 
 
@@ -67,59 +48,37 @@
 
     private PersonDBcontext? dbContext;
     [Parameter]
-    public string? ContactId { get; set; }
+    public string? ContactId { get; set; } //contact id of string coming in. 
     Guid MainPerson;
-    private Person? person { get; set; }
-    List<Person> Persons = new List<Person>();
-
-
+   
 
     Person theperson = new Person();
 
-
-
-    //protected override void OnInitialized()
-    //{
-    //    person = service.GetPersonAsync();
-    //}
-    //protected override async Task OnParametersSetAsync()
-    //{
-    //    MainPerson = (Guid)(new GuidConverter().ConvertFrom(ContactId));
-
-    //    theperson = await service.GetSinglePerson(ContactId);
-    //}
     protected override async Task OnInitializedAsync()
     {
         await RefreshPersons();
     }
     private async Task RefreshPersons()
     {
-        MainPerson = (Guid)(new GuidConverter().ConvertFrom(ContactId));
-        Console.WriteLine(MainPerson);
-        Console.WriteLine(MainPerson.GetType());
-        Persons = await service.GetPersonAsync();
-        theperson = await service.GetSinglePerson(MainPerson);
-        Console.WriteLine(theperson.FirstName);
+        try
+        {
+            MainPerson = (Guid)(new GuidConverter().ConvertFrom(ContactId));
+        }
+        catch
+        {
+            throw;
+        }
 
-        //Console.WriteLine(TypeDescriptor.GetConverter(MainPerson).ConvertFrom(ContactId));
-        //Console.WriteLine(MainPerson);
-        //Console.WriteLine(MainPerson.GetType());
-        //var prod = dbContext.Person.FindAsync(MainPerson);
-        //Console.WriteLine("prod is: ", prod);
-        //var productExist = dbContext.Person.FirstOrDefault(p => p.Id == p.Id);
+        theperson = await service.GetSinglePerson(MainPerson);
+
     }
     
 
 	private async Task UpdatePersonData()
 	{
+        Console.WriteLine("inside updateperson");
 		await service.UpdatePersonAsync(theperson);
 		await RefreshPersons();
         UriHelper.NavigateTo("/");
 	}
-    //private async Task FindIndex()
-    //{
-    //    int index = Persons.FindIndex(a => a.Contains("hello"));
-    //}
-
-
 }

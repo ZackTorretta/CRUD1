@@ -40,10 +40,6 @@ namespace CRUD1.Data
                 //the ID is set to 1 for now and the datetime is set to 6/10/2011 for now. no CRUD yet.
                 new Person { Id = ToGuid(1), LastName = "Torretta", FirstName = "Zack", PhoneNumber = "1231231234", BirthDate = new DateTime(2011, 6, 10)}
             };
-            //    new Person { Id = 1002, Name = "Microsoft Office", Price = 20.99, Quantity = 50, Description ="This is a Office Application"},
-            //    new Person { Id = 1003, Name = "Lazer Mouse", Price = 12.02, Quantity = 20, Description ="The mouse that works on all surface"},
-            //    new Person { Id = 1004, Name = "USB Storage", Price = 5.00, Quantity = 20, Description ="To store 256GB of data"}
-            //};
         }
         #endregion
     }

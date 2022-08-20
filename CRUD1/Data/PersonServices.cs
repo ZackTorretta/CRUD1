@@ -3,7 +3,6 @@ namespace CRUD1.Data
 {
     public class PersonServices
     {
-        //crud services
         #region Private members
         private PersonDBcontext dbContext;
         #endregion
@@ -13,37 +12,20 @@ namespace CRUD1.Data
         {
             this.dbContext = dbContext;
         }
-        #endregion
-        //git test
-        #region Public methods
-        /// <summary>
-        /// This method returns the list of product
-        /// </summary>
-        /// <returns></returns>
-        public async Task<List<Person>> GetPersonAsync() //get here
+
+        public async Task<List<Person>> GetPersonAsync(string orderBy = "Person ID") //get here
         {
+            
             return await dbContext.Person.ToListAsync();
         }
         
-        public async Task<Person> GetSinglePerson(Guid id)
+        public async Task<Person> GetSinglePerson(Guid id) //this is for updating. Gets the specific person in the table
         {
             var contact = await dbContext.Person.FindAsync(id);
-            if (contact == null)
-            {
-                Console.WriteLine("null findasync");
-            }
-            else
-            {
-                Console.WriteLine(contact);
-            }
+            
             return contact;
 
         }
-        /// <summary>
-        /// This method add a new product to the DbContext and saves it. ADD here
-        /// </summary>
-        /// <param name="person"></param>
-        /// <returns></returns>
         public async Task<Person> AddPersonAsync(Person person)
         {
             try
@@ -60,11 +42,11 @@ namespace CRUD1.Data
             return person;
         }
 
-        /// <summary>
+     
         /// This method update and existing product and saves the changes. EDIT
-        /// </summary>
+        
         /// <param name="p"></param>
-        /// <returns></returns>
+        
         public async Task<Person> UpdatePersonAsync(Person person)
         {
             try
@@ -85,11 +67,11 @@ namespace CRUD1.Data
             return person;
         }
 
-        /// <summary>
+       
         /// This method removes and existing product from the DbContext and saves it. DELETE
-        /// </summary>
+    
         /// <param name="person"></param>
-        /// <returns></returns>
+       
         public async Task DeletePersonAsync(Person person) //delete here
         {
             try
